@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+
+<title>Register New User Form</title>
+
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Reference Bootstrap files -->
+<!-- Latest compiled and minified CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+.error {
+	color: red
+}
+
+.container {
+	padding: 5% 15%;
+}
+
+table {
+	border: 1px solid black;
+}
+
+nav li a {
+	color: white;
+}
+</style>
+
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<div class="container-fluid">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link active"
+					aria-current="page" th:href="@{/}">Home</a></li>
+				<li class="nav-item"><a class="nav-link active"
+					aria-current="page" th:href="@{/students/}">Show Students</a></li>
+				<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a
+					class="nav-link active" th:href="@{/students/showStudentForm}">Add
+						Student</a></li>
+				<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a
+					class="nav-link active"
+					th:href="@{/departments/showDepartmentForm}">Add Department</a></li>
+				<li class="nav-item">
+					<form th:action="@{/logout}" method="POST">
+						<input class="btn btn-danger" type="submit" value="Logout" />
+					</form>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+
+		<table class="table table-striped">
+			<thead>
+				<tr scope="row">
+					<th scope="col">Department Name</th>
+					<th scope="col">Functions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr scope="row" th:each="department: ${departments}">
+					<td th:text="${department.name}"></td>
+					<td><a type="button" class="btn btn-primary me-4">Update</a> <a
+					sec:authorize="hasRole('ROLE_ADMIN')"
+						type="button" class="btn btn-danger"
+						th:href="@{	/departments/delete(departmentId=${department.id})}">Delete</a></td>
+				</tr>
+			</tbody>
+
+		</table>
+	</div>
+
+</body>
+</html>

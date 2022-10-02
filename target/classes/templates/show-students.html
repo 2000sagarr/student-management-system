@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+
+<title>Register New User Form</title>
+
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Reference Bootstrap files -->
+<!-- Latest compiled and minified CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+.error {
+	color: red
+}
+
+.container {
+	padding: 5% 5%;
+}
+
+table {
+	border: 1px solid black;
+}
+</style>
+
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<div class="container-fluid">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link active"
+					aria-current="page" th:href="@{/}">Home</a></li>
+				<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a
+					class="nav-link active" th:href="@{/students/showStudentForm}">Add
+						Student</a></li>
+				<li class="nav-item"><a class="nav-link active"
+					aria-current="page" th:href="@{/departments/}">Show Departments</a></li>
+				<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a
+					class="nav-link active"
+					th:href="@{/departments/showDepartmentForm/}">Add Department</a></li>
+				<li class="nav-item">
+					<form th:action="@{/logout}" method="POST">
+						<input class="btn btn-danger" type="submit" value="Logout" />
+					</form>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+
+		<table class="table table-striped">
+			<thead>
+				<tr scope="row">
+					<th scope="col">First Name</th>
+					<th scope="col">Last Name</th>
+					<th scope="col">Email</th>
+					<th scope="col">Phone Number</th>
+					<th scope="col">Address</th>
+					<th scope="col">City</th>
+					<th scope="col">Functions</th>
+
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr scope="row" th:each="student: ${students}">
+					<td th:text="${student.studentDetail.firstName}"></td>
+					<td th:text="${student.studentDetail.lastName}"></td>
+					<td th:text="${student.studentDetail.email}"></td>
+					<td th:text="${student.studentDetail.phoneNumber}"></td>
+					<td th:text="${student.studentDetail.address}"></td>
+					<td th:text="${student.studentDetail.city}"></td>
+					<td>
+					<td><a type="button" class="btn btn-primary me-4"
+						th:href="@{	/students/update(studentId=${student.id})}">Update</a>
+						<a sec:authorize="
+						hasRole('ROLE_ADMIN')" type="button"
+						class="btn btn-danger"
+						th:href="@{	/students/delete(studentId=${student.id})}">Delete</a></td>
+
+				</tr>
+			</tbody>
+
+		</table>
+	</div>
+
+</body>
+</html>

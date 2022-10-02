@@ -1,0 +1,18 @@
+package com.sagar.studentmanagementsystem.service;
+
+import java.util.List;
+
+import com.sagar.studentmanagementsystem.entity.Department;
+
+public interface DepartmentService {
+
+	public List<Department> findAll();
+
+	public Department findById(int theId);
+
+	public void save(Department theDepartment);
+
+	public void deleteById(int theId);
+	public Department findByName(String name);
+
+}
