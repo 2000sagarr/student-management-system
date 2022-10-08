@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -19,14 +18,11 @@ public class Student {
 	@Column(name = "id")
 	private int id;
 	
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="student_detail_id")
 	private StudentDetail studentDetail;
-	
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
-	@JoinColumn(name = "department_id")
-	private Department department;
-	
+
 	public Student() {
 	}
 

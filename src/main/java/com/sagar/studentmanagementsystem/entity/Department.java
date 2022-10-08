@@ -1,6 +1,7 @@
 package com.sagar.studentmanagementsystem.entity;
 
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +20,7 @@ public class Department {
 
 	@Column(name = "name")
 	private String name;
-
+	
 	public Department() {
 	}
 
@@ -42,17 +43,6 @@ public class Department {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-//	public void add(Student tempStudent) {
-//
-//		if (students == null) {
-//			students = new ArrayList<>();
-//		}
-//
-//		students.add(tempStudent);
-//
-//		tempStudent.setDepartment(this);
-//	}
 
 	@Override
 	public String toString() {
